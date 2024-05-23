@@ -8,27 +8,31 @@ const rl = createInterface({
 
 const textPrompt = (query) => new Promise((resolve) => rl.question(query, resolve));
 
-const twoNumbersPrompt = (query) => {
-  return new Promise((resolve) => {
-    const askQuestion = () => {
-      rl.question(query, (answer) => {
-        if (!answer.includes(",")) {
-          console.log("양식에 맞게 숫자를 입력해주세요! (예: 1,50)");
-          askQuestion();
-        } else {
-          const numbers = answer.split(',').map(num => parseInt(num, 10));
-          if (numbers.length !== 2 || numbers.some(isNaN)) {
-            console.log("숫자 두 개를 정확히 입력해주세요! (예: 1,50)");
-            askQuestion();
-          } else {
-            resolve(numbers);
-          }
-        }
-      });
-    };
-    askQuestion();
-  });
+const validateInput = (answer) => {
+  if (!answer.includes(',')) {
+    console.log('양식에 맞게 숫자를 입력해주세요! (예: 1,50)');
+    return false;
+  }
+  const numbers = answer.split(',').map(num => parseInt(num, 10));
+  if (numbers.length !== 2 || numbers.some(isNaN)) {
+    console.log('숫자 두 개를 정확히 입력해주세요! (예: 1,50)');
+    return false;
+  }
+  return numbers;
 };
+
+const twoNumbersPrompt = (query) => new Promise((resolve) => {
+  const askQuestion = () => {
+    rl.question(query, (answer) => {
+      const numbers = validateInput(answer);
+      if (numbers) {
+        return resolve(numbers);
+      }
+      askQuestion();
+    });
+  };
+  askQuestion();
+});
 
 
 const askRestart = async () => {
@@ -54,18 +58,15 @@ const processGuess = (guess, answer, attempts, previousGuesses) => {
   return false;
 };
 
-const getTwoRandomNumbersInRange =  async () =>{
+const getTwoRandomNumbersInRange = async () => {
   while (true) {
-    const [min, max] = await twoNumbersPrompt('숫자입력 : ');
-    
-    if (max - min < 1) {
-      console.log('최소 값과 최대 값을 다시 설정해주세요');
-    } else {
-      const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-      return randomNumber;
+    const [min, max] = await twoNumbersPrompt('최소 값과 최대 값을 입력해주세요 (예: 1,50): ');
+    if (max - min >= 1) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
     }
+    console.log('최소 값과 최대 값을 다시 설정해주세요');
   }
-}
+};
 
 const askGuess = async (answer, attempts, previousGuesses) => {
   const input = await textPrompt('숫자 입력: ');
