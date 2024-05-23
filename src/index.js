@@ -60,7 +60,8 @@ const getTwoRandomNumbersInRange = async () => {
   while (true) {
     const [min, max] = await twoNumbersPrompt('숫자 입력: ');
     if (max - min >= 1) {
-      return Math.floor(Math.random() * (max - min + 1)) + min;
+      const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min
+      return  [randomNumber, min, max];
     }
     console.log('최소 값과 최대 값을 다시 설정해주세요');
   }
@@ -75,12 +76,12 @@ const askMaxAttempts = async ()=>{
   return maxAttempts
 }
 
-const askGuess = async (answer, attempts, previousGuesses) => {
+const askGuess = async (answer, attempts, previousGuesses, min, max) => {
   const input = await singlePrompt('숫자 입력: ');
   const guess = parseInt(input, 10);
 
-  if (isNaN(guess) || guess < 1 || guess > 50) {
-    console.log('1부터 50 사이의 숫자를 입력해주세요.');
+  if (isNaN(guess) || guess < min || guess > max) {
+    console.log(`${min}부터 ${max} 사이의 숫자를 입력해주세요.`);
     return false;
   }
 
@@ -91,7 +92,7 @@ const askGuess = async (answer, attempts, previousGuesses) => {
 const playGame = async () => {
   console.log("[게임 설정] 게임 시작을 위해 최소 값, 최대 값을 입력해주세요. (예: 1, 50)");
 
-  const randomNumber = await getTwoRandomNumbersInRange()
+  const [randomNumber,min,max] = await getTwoRandomNumbersInRange()
 
   console.log("[게임 설정] 게임 시작을 위해 진행 가능 횟수를 입력해주세요.")
 
@@ -100,11 +101,11 @@ const playGame = async () => {
   const previousGuesses = [];
 
   console.log('숫자 업앤다운 게임에 오신 것을 환영합니다!');
-  console.log(`1부터 ${randomNumber} 사이의 숫자를 맞춰보세요. 최대 ${maxAttempts}번의 기회가 있습니다.`);
+  console.log(`${min}부터 ${max} 사이의 숫자를 맞춰보세요. 최대 ${maxAttempts}번의 기회가 있습니다.`);
 
   while (attempts < maxAttempts) {
     attempts += 1;
-    const correct = await askGuess(randomNumber, attempts, previousGuesses);
+    const correct = await askGuess(randomNumber, attempts, previousGuesses, min, max);
     if (correct) {
       return askRestart();
     }
