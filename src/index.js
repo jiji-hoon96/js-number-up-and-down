@@ -5,21 +5,20 @@ const rl = createInterface({
   output: process.stdout,
 });
 
-
-const textPrompt = (query) => new Promise((resolve) => rl.question(query, resolve));
-
 const validateInput = (answer) => {
   if (!answer.includes(',')) {
-    console.log('양식에 맞게 숫자를 입력해주세요! (예: 1,50)');
+    console.log('양식에 맞게 숫자를 입력해주세요 (예: 1,50)');
     return false;
   }
   const numbers = answer.split(',').map(num => parseInt(num, 10));
   if (numbers.length !== 2 || numbers.some(isNaN)) {
-    console.log('숫자 두 개를 정확히 입력해주세요! (예: 1,50)');
+    console.log('숫자 두 개를 정확히 입력해주세요 (예: 1,50)');
     return false;
   }
   return numbers;
 };
+
+const singlePrompt = (query) => new Promise((resolve) => rl.question(query, resolve));
 
 const twoNumbersPrompt = (query) => new Promise((resolve) => {
   const askQuestion = () => {
@@ -34,9 +33,8 @@ const twoNumbersPrompt = (query) => new Promise((resolve) => {
   askQuestion();
 });
 
-
 const askRestart = async () => {
-  const input = await textPrompt('게임을 다시 시작하시겠습니까? (yes/no) : ');
+  const input = await singlePrompt('게임을 다시 시작하시겠습니까? (yes/no) : ');
   if (input.toString() === 'yes') {
     return playGame();
   } 
@@ -60,7 +58,7 @@ const processGuess = (guess, answer, attempts, previousGuesses) => {
 
 const getTwoRandomNumbersInRange = async () => {
   while (true) {
-    const [min, max] = await twoNumbersPrompt('최소 값과 최대 값을 입력해주세요 (예: 1,50): ');
+    const [min, max] = await twoNumbersPrompt('숫자 입력: ');
     if (max - min >= 1) {
       return Math.floor(Math.random() * (max - min + 1)) + min;
     }
@@ -68,8 +66,17 @@ const getTwoRandomNumbersInRange = async () => {
   }
 };
 
+const askMaxAttempts = async ()=>{
+  const maxAttempts = await singlePrompt('숫자 입력: ');
+  if(maxAttempts < 1) {
+    console.log("게임 진행 가능 횟수는 최소 2번 이상입니다.")
+    return false;
+  }
+  return maxAttempts
+}
+
 const askGuess = async (answer, attempts, previousGuesses) => {
-  const input = await textPrompt('숫자 입력: ');
+  const input = await singlePrompt('숫자 입력: ');
   const guess = parseInt(input, 10);
 
   if (isNaN(guess) || guess < 1 || guess > 50) {
@@ -83,26 +90,27 @@ const askGuess = async (answer, attempts, previousGuesses) => {
 
 const playGame = async () => {
   console.log("[게임 설정] 게임 시작을 위해 최소 값, 최대 값을 입력해주세요. (예: 1, 50)");
+
   const randomNumber = await getTwoRandomNumbersInRange()
-  console.log(randomNumber);  
 
-  return;
+  console.log("[게임 설정] 게임 시작을 위해 진행 가능 횟수를 입력해주세요.")
 
+  const maxAttempts = await askMaxAttempts();
   let attempts = 0;
   const previousGuesses = [];
 
   console.log('숫자 업앤다운 게임에 오신 것을 환영합니다!');
-  console.log('1부터 50 사이의 숫자를 맞춰보세요. 최대 5번의 기회가 있습니다.');
+  console.log(`1부터 ${randomNumber} 사이의 숫자를 맞춰보세요. 최대 ${maxAttempts}번의 기회가 있습니다.`);
 
   while (attempts < maxAttempts) {
     attempts += 1;
-    const correct = await askGuess(answer, attempts, previousGuesses);
+    const correct = await askGuess(randomNumber, attempts, previousGuesses);
     if (correct) {
       return askRestart();
     }
   }
 
-  console.log(`아쉽습니다. 정답은 ${answer} 였습니다.`);
+  console.log(`아쉽습니다. 정답은 ${randomNumber} 였습니다.`);
   askRestart();
 };
 
