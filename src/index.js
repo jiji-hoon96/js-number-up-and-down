@@ -5,12 +5,34 @@ const rl = createInterface({
   output: process.stdout,
 });
 
-const getRandomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
-const prompt = (query) => new Promise((resolve) => rl.question(query, resolve));
+const textPrompt = (query) => new Promise((resolve) => rl.question(query, resolve));
+
+const twoNumbersPrompt = (query) => {
+  return new Promise((resolve) => {
+    const askQuestion = () => {
+      rl.question(query, (answer) => {
+        if (!answer.includes(",")) {
+          console.log("양식에 맞게 숫자를 입력해주세요! (예: 1,50)");
+          askQuestion();
+        } else {
+          const numbers = answer.split(',').map(num => parseInt(num, 10));
+          if (numbers.length !== 2 || numbers.some(isNaN)) {
+            console.log("숫자 두 개를 정확히 입력해주세요! (예: 1,50)");
+            askQuestion();
+          } else {
+            resolve(numbers);
+          }
+        }
+      });
+    };
+    askQuestion();
+  });
+};
+
 
 const askRestart = async () => {
-  const input = await prompt('게임을 다시 시작하시겠습니까? (yes/no) : ');
+  const input = await textPrompt('게임을 다시 시작하시겠습니까? (yes/no) : ');
   if (input.toString() === 'yes') {
     return playGame();
   } 
@@ -32,8 +54,21 @@ const processGuess = (guess, answer, attempts, previousGuesses) => {
   return false;
 };
 
+const getTwoRandomNumbersInRange =  async () =>{
+  while (true) {
+    const [min, max] = await twoNumbersPrompt('숫자입력 : ');
+    
+    if (max - min < 1) {
+      console.log('최소 값과 최대 값을 다시 설정해주세요');
+    } else {
+      const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+      return randomNumber;
+    }
+  }
+}
+
 const askGuess = async (answer, attempts, previousGuesses) => {
-  const input = await prompt('숫자 입력: ');
+  const input = await textPrompt('숫자 입력: ');
   const guess = parseInt(input, 10);
 
   if (isNaN(guess) || guess < 1 || guess > 50) {
@@ -46,8 +81,12 @@ const askGuess = async (answer, attempts, previousGuesses) => {
 };
 
 const playGame = async () => {
-  const answer = getRandomNumber(1, 50);
-  const maxAttempts = 5;
+  console.log("[게임 설정] 게임 시작을 위해 최소 값, 최대 값을 입력해주세요. (예: 1, 50)");
+  const randomNumber = await getTwoRandomNumbersInRange()
+  console.log(randomNumber);  
+
+  return;
+
   let attempts = 0;
   const previousGuesses = [];
 
