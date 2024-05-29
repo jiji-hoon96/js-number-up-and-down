@@ -9,7 +9,8 @@ class GameView {
     console.log(`[게임 설정] 게임 시작을 위해 ${this.gameLogic.min}부터 ${this.gameLogic.max} 사이의 숫자를 맞춰보세요. 최대 ${this.gameLogic.maxAttempts}번의 기회가 있습니다.`);
 
     while (!this.gameLogic.isGameOver()) {
-      this.gameLogic.attempts += 1;
+      this.gameLogic.increaseAttempts();
+
       const input = await singlePrompt('숫자 입력: ');
       const guess = parseInt(input, 10);
 
