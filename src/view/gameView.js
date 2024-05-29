@@ -21,11 +21,11 @@ class GameView {
       const correct = this.gameLogic.processGuess(guess);
       if (correct) {
         console.log(`정답! 축하합니다! ${this.gameLogic.attempts}번 만에 숫자를 맞추셨습니다.`);
+        console.log(`정답은 ${this.gameLogic.answer} 입니다.`)
         break;
       }
-    }
 
-    console.log(`아쉽습니다. 정답은 ${this.gameLogic.answer} 였습니다.`);
+    }
   }
 }
 

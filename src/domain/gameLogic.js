@@ -24,7 +24,10 @@ class GameLogic {
     }
   
     isGameOver() {
-      return this.attempts >= this.maxAttempts;
+      if(this.attempts >= this.maxAttempts){
+        console.log(`아쉽습니다. 정답은 ${this.answer} 였습니다.`)
+        return this.attempts >= this.maxAttempts;
+      }
     }
   }
   
