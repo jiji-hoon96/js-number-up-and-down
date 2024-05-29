@@ -5,7 +5,7 @@ const rl = createInterface({
   output: process.stdout,
 });
 
-const singlePrompt = (query) => new Promise((resolve) => rl.question(query, resolve));
+const inputSingleNumber = (query) => new Promise((resolve) => rl.question(query, resolve));
 
 const validateInput = (answer) => {
   if (!answer.includes(',')) {
@@ -20,7 +20,7 @@ const validateInput = (answer) => {
   return numbers;
 };
 
-const twoNumbersPrompt = (query) => new Promise((resolve) => {
+const inputTwoNumbers = (query) => new Promise((resolve) => {
   const askQuestion = () => {
     rl.question(query, (answer) => {
       const numbers = validateInput(answer);
@@ -33,4 +33,4 @@ const twoNumbersPrompt = (query) => new Promise((resolve) => {
   askQuestion();
 });
 
-export {  rl, singlePrompt, twoNumbersPrompt };
+export {  rl, inputSingleNumber, inputTwoNumbers };

@@ -1,4 +1,4 @@
-import {singlePrompt} from './prompt.js'
+import {inputSingleNumber} from './input.js'
 
 class GameView {
   constructor(gameLogic) {
@@ -11,7 +11,7 @@ class GameView {
     while (!this.gameLogic.isGameOver()) {
       this.gameLogic.increaseAttempts();
 
-      const input = await singlePrompt('숫자 입력: ');
+      const input = await inputSingleNumber('숫자 입력: ');
       const guess = parseInt(input, 10);
 
       if (isNaN(guess) || guess < this.gameLogic.min || guess > this.gameLogic.max) {
