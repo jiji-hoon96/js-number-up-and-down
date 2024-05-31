@@ -3,13 +3,13 @@
 const playGame = () => {
     const minNum = Number(document.getElementById('min-number').value);
     const maxNum = Number(document.getElementById('max-number').value);
-    const attemptNum = Number(document.getElementById('attempts').value);
+    const maxAttemptNum = Number(document.getElementById('attempts').value);
 
-    if(minNum === '' || maxNum === '' || attemptNum === ''){
+    if(minNum === '' || maxNum === '' || maxAttemptNum === ''){
         return alert('모든 값을 입력해주세요.');    
     }
 
-    if(attemptNum <= 0){
+    if(maxAttemptNum <= 0){
         return alert('게임 진행 가능 횟수는 최소 1번 이상입니다.');
     }
 
@@ -18,7 +18,7 @@ const playGame = () => {
     }
     sessionStorage.setItem('minNum', minNum);
     sessionStorage.setItem('maxNum', maxNum);
-    sessionStorage.setItem('attemptNum', attemptNum);
+    sessionStorage.setItem('maxAttemptNum', maxAttemptNum);
     window.location.href="game.html"
   }   
 

@@ -1,4 +1,7 @@
-
+let attemptNum=0;
+const minNum = Number(sessionStorage.getItem('minNum'));
+const maxNum = Number(sessionStorage.getItem('maxNum'));
+const maxAttemptNum = Number(sessionStorage.getItem('maxAttemptNum'));
 
 const guessNumber = () =>{
     const input = document.getElementById('guess-input')
