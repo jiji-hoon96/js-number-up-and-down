@@ -18,39 +18,65 @@ const guessNumber = () =>{
     progressArea.appendChild(addComputerLog);
   
     attemptNum++;
+
+      
+    if (attemptNum === maxAttemptNum) {
+      const input = document.getElementById('guess-input');
+      const confirmGameBtn = document.getElementById('submit-guess')
+      addComputerLog.textContent = `[컴퓨터] : 게임 오버, 정답은 ${correctNum}입니다.`;
+      confirmGameBtn.disabled = true;
+      input.disabled = true;
+      confirmGameBtn.style.backgroundColor = 'grey';
+      return;
+    }
+  
   
     if (inputNum === correctNum) {
-      addComputerLog.textContent = `[컴퓨터] : ${correctNum}`;
+      addComputerLog.textContent = "[컴퓨터] : 정답!";
+      progressArea.appendChild(addComputerLog);
       showResult();
     } else if (inputNum < correctNum) {
-      addComputerLog.textContent = "[컴퓨터] : 업";
+
+      const addComputerLog1 = document.createElement('li');
+      addComputerLog1.textContent = "[컴퓨터] : 업";
+      progressArea.appendChild(addComputerLog1);
+      addComputerLog1.classList.add('computer-log');
+
+      const addComputerLog2 = document.createElement('li');
+      addComputerLog2.textContent = `[컴퓨터] : ${maxAttemptNum -attemptNum}회 남았습니다. 숫자를 맞춰보세요.`;
+      progressArea.appendChild(addComputerLog2);
+      addComputerLog2.classList.add('computer-log');
+
     } else {
-      addComputerLog.textContent = "[컴퓨터] : 다운";
+
+      const addComputerLog1 = document.createElement('li');
+      addComputerLog1.textContent = "[컴퓨터] : 다운";
+      progressArea.appendChild(addComputerLog1);
+      addComputerLog1.classList.add('computer-log');
+      
+      const addComputerLog2 = document.createElement('li');
+      addComputerLog2.textContent = `[컴퓨터] : ${maxAttemptNum -attemptNum}회 남았습니다. 숫자를 맞춰보세요.`;
+      progressArea.appendChild(addComputerLog2);
+      addComputerLog2.classList.add('computer-log');
+
     }
-  
-    if (attemptNum === maxAttemptNum && inputNum !== correctNum) {
-      addComputerLog.textContent = `[컴퓨터] : 게임 오버, 정답은 ${correctNum}` ;
-      showResult();
-    }
-  
+    
+
     input.value = '';
+
 }
 
 const showResult = () => {
     const progressArea = document.querySelector('.progress-log');
+    const input = document.getElementById('guess-input');
+    const confirmGameBtn = document.getElementById('submit-guess')
     const resultLog = document.createElement('li');
-    resultLog.textContent = `[컴퓨터] : ${attemptNum}회 만에 맞췄습니다.`;
+    resultLog.textContent = `[컴퓨터] : 축하합니다. ${attemptNum}회만에 숫자를 맞추셨습니다.`;
     resultLog.classList.add('computer-log');
     progressArea.appendChild(resultLog);
-    
-  }
-  
-  const restartGame = () => {
-    location.reload();
-  }
-  
-  const quitGame = () => {
-    window.close();
+    confirmGameBtn.disabled = true;
+    input.disabled = true;
+    confirmGameBtn.style.backgroundColor = 'grey';
   }
 
 const reStart = ()=>{
