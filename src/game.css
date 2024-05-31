@@ -1,116 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
 body {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Roboto', sans-serif;
     background-color: #f0f0f0;
 }
 
 .container {
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    padding: 40px;
-    width: 300px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+    padding: 32px;
+    width: 400px;
     text-align: center;
 }
 
 .header {
-    margin-bottom: 30px;
-}
-
-.header .icon {
-    font-size: 24px;
-    margin-bottom: 10px;
+    margin-bottom: 24px;
 }
 
 .header h1 {
     margin: 0;
     font-size: 24px;
+    font-weight: 500;
 }
 
 .game-input {
-    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
 }
 
 .game-input label {
+    width:80px;
     display: block;
-    margin-bottom: 5px;
     font-size: 16px;
+    color: grey;
+    margin-right: 20px;
+    font-weight: bolder;
+
 }
 
 #guess-input {
-    width: calc(100% - 20px);
-    padding: 5px;
+    width: 60%;
+    padding: 8px;
     font-size: 16px;
     text-align: center;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-right: 5px;
+    border: 1px solid #d0d0d0;
+    border-radius: 4px;
+    margin-right: 8px;
+    box-sizing: border-box;
 }
 
 #submit-guess {
-    padding: 5px 10px;
+    width: 80px;
+    padding: 8px 12px;
     font-size: 16px;
     color: white;
-    background-color: #6a0dad;
+    background-color: #1976d2;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
 #submit-guess:hover {
-    background-color: #5a009a;
+    background-color: #1565c0;
 }
 
 .game-progress {
-    margin-bottom: 20px;
+    margin-bottom: 24px;
 }
 
 .game-progress h2 {
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     font-size: 20px;
+    font-weight: 800;
 }
 
 .progress-log {
     text-align: left;
-    max-height: 150px;
-    overflow-y: auto;
-    border: 1px solid #ccc;
+    height: 300px;
     padding: 10px;
-    border-radius: 5px;
-    background-color: #f9f9f9;
+    overflow-y: scroll;
+    border-radius: 4px;
 }
 
 .progress-log p {
-    margin: 5px 0;
+    margin: 8px 0;
     font-size: 14px;
 }
 
-.user-log{
+.user-log {
     list-style: none;
+    margin: 10px;
+    color: grey;
 }
 
-.computer-log{
+.computer-log {
     list-style: none;
     color: grey;
+    margin: 10px;
 }
 
 #go-to-main {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     font-size: 18px;
     color: white;
-    background-color: #6a0dad;
+    background-color: #1976d2;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
 #go-to-main:hover {
-    background-color: #5a009a;
+    background-color: #1565c0;
 }
