@@ -90,6 +90,10 @@ body {
     font-size: 14px;
 }
 
+.user-log{
+    list-style: none;
+}
+
 #go-to-main {
     width: 100%;
     padding: 10px;
