@@ -1,25 +1,23 @@
+const getNumberInputValue = id => Number(document.getElementById(id).value);
 
+const alertAndReturn = message => {
+  alert(message);
+  return;
+};
 
 const playGame = () => {
-    const minNum = Number(document.getElementById('min-number').value);
-    const maxNum = Number(document.getElementById('max-number').value);
-    const maxAttemptNum = Number(document.getElementById('attempts').value);
+  const minNum = getNumberInputValue('min-number');
+  const maxNum = getNumberInputValue('max-number');
+  const maxAttemptNum = getNumberInputValue('attempts');
 
-    if(minNum === '' || maxNum === '' || maxAttemptNum === ''){
-        return alert('모든 값을 입력해주세요.');    
-    }
+  if(!minNum || !maxNum || !maxAttemptNum) return alertAndReturn('모든 값을 입력해주세요.');
+  if(maxAttemptNum <= 0) return alertAndReturn('게임 진행 가능 횟수는 최소 1번 이상입니다.');
+  if(minNum >= maxNum) return alertAndReturn('최소값은 최대값보다 작아야 합니다.');
 
-    if(maxAttemptNum <= 0){
-        return alert('게임 진행 가능 횟수는 최소 1번 이상입니다.');
-    }
+  sessionStorage.setItem('minNum', minNum);
+  sessionStorage.setItem('maxNum', maxNum);
+  sessionStorage.setItem('maxAttemptNum', maxAttemptNum);
+  window.location.href="game.html";
+};
 
-    if(minNum >= maxNum){
-        return alert('최소값은 최대값보다 작아야 합니다.');
-    }
-    sessionStorage.setItem('minNum', minNum);
-    sessionStorage.setItem('maxNum', maxNum);
-    sessionStorage.setItem('maxAttemptNum', maxAttemptNum);
-    window.location.href="game.html"
-  }   
-
-const startGameBtn = document.getElementById('start-game').addEventListener('click', playGame);
+document.getElementById('start-game').addEventListener('click', playGame);
