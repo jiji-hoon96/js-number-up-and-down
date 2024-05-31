@@ -94,6 +94,11 @@ body {
     list-style: none;
 }
 
+.computer-log{
+    list-style: none;
+    color: grey;
+}
+
 #go-to-main {
     width: 100%;
     padding: 10px;
