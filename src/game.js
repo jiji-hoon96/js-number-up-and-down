@@ -20,12 +20,12 @@ const guessNumber = () =>{
     attemptNum++;
   
     if (inputNum === correctNum) {
-        addComputerLog.textContent = `[컴퓨터] : ${correctNum}`;
+      addComputerLog.textContent = `[컴퓨터] : ${correctNum}`;
       showResult();
     } else if (inputNum < correctNum) {
-        addComputerLog.textContent = "[컴퓨터] : 업";
+      addComputerLog.textContent = "[컴퓨터] : 업";
     } else {
-        addComputerLog.textContent = "[컴퓨터] : 다운";
+      addComputerLog.textContent = "[컴퓨터] : 다운";
     }
   
     if (attemptNum === maxAttemptNum && inputNum !== correctNum) {
@@ -37,20 +37,12 @@ const guessNumber = () =>{
 }
 
 const showResult = () => {
-    const resultArea = document.querySelector('.result-log');
+    const progressArea = document.querySelector('.progress-log');
     const resultLog = document.createElement('li');
     resultLog.textContent = `[컴퓨터] : ${attemptNum}회 만에 맞췄습니다.`;
-    resultArea.appendChild(resultLog);
-  
-    const restartBtn = document.createElement('button');
-    restartBtn.textContent = "재시작";
-    restartBtn.addEventListener('click', restartGame);
-    resultArea.appendChild(restartBtn);
-  
-    const quitBtn = document.createElement('button');
-    quitBtn.textContent = "종료";
-    quitBtn.addEventListener('click', quitGame);
-    resultArea.appendChild(quitBtn);
+    resultLog.classList.add('computer-log');
+    progressArea.appendChild(resultLog);
+    
   }
   
   const restartGame = () => {
@@ -61,4 +53,10 @@ const showResult = () => {
     window.close();
   }
 
+const reStart = ()=>{
+  window.location.href = 'main.html';
+  sessionStorage.clear()
+}
+
 const confirmGameBtn = document.getElementById('submit-guess').addEventListener('click', guessNumber);
+const reStartBtn = document.getElementById('go-to-main').addEventListener('click',  reStart);
