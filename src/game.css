@@ -1,0 +1,107 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+}
+
+.container {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    width: 300px;
+    text-align: center;
+}
+
+.header {
+    margin-bottom: 30px;
+}
+
+.header .icon {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.game-input {
+    margin-bottom: 20px;
+}
+
+.game-input label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+#guess-input {
+    width: calc(100% - 20px);
+    padding: 5px;
+    font-size: 16px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 5px;
+}
+
+#submit-guess {
+    padding: 5px 10px;
+    font-size: 16px;
+    color: white;
+    background-color: #6a0dad;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#submit-guess:hover {
+    background-color: #5a009a;
+}
+
+.game-progress {
+    margin-bottom: 20px;
+}
+
+.game-progress h2 {
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.progress-log {
+    text-align: left;
+    max-height: 150px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.progress-log p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+#go-to-main {
+    width: 100%;
+    padding: 10px;
+    font-size: 18px;
+    color: white;
+    background-color: #6a0dad;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#go-to-main:hover {
+    background-color: #5a009a;
+}
