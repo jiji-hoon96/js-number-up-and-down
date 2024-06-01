@@ -16,11 +16,20 @@ const appendLogElements = (elements) => {
   elements.forEach(element => progressArea.appendChild(element));
 };
 
+const showResult = () => {
+  const progressArea= document.querySelector('.progress-log');
+  const resultLog = document.createElement('li');
+  resultLog.textContent = `[컴퓨터] 축하합니다! 정답을 ${attemptNum}회만에 숫자를 맞추셨습니다.`;
+  resultLog.classList.add('computer-log');
+  progressArea.appendChild(resultLog);  
+}
+
 const guessNumber = () => {
   const input = document.getElementById('guess-input');
   const inputNum = Number(input.value);
   const userLog = createLogElement(`[유저] : ${inputNum}`, 'user-log');
   let computerLog;
+  input.value =''
 
   attemptNum++;
 
@@ -45,4 +54,9 @@ const guessNumber = () => {
   appendLogElements([userLog, computerLog]);
 };
 
-document.getElementById('start-game').addEventListener('click', guessNumber);
+const goToM = () => {
+  window.location.href = 'main.html';
+};
+
+document.getElementById('submit-guess').addEventListener('click', guessNumber);
+document.getElementById('go-to-main').addEventListener('click',goToM )
