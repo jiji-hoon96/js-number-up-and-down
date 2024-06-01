@@ -17,11 +17,16 @@ const appendLogElements = (elements) => {
 };
 
 const showResult = () => {
+  const input = document.getElementById("guess-input");
   const progressArea = document.querySelector(".progress-log");
   const resultLog = document.createElement("li");
+  const confirmGameBtn = document.getElementById("submit-guess");
   resultLog.textContent = `[컴퓨터] 축하합니다! 정답을 ${attemptNum}회만에 숫자를 맞추셨습니다. 정답은 ${correctNum}입니다!`;
   resultLog.classList.add("computer-log");
   progressArea.appendChild(resultLog);
+  confirmGameBtn.disabled = true;
+  input.disabled = true;
+  confirmGameBtn.style.backgroundColor = "grey";
 };
 
 const guessNumber = () => {
@@ -30,8 +35,16 @@ const guessNumber = () => {
   const userLog = createLogElement(`[유저] : ${inputNum}`, "user-log");
   let computerLog;
   input.value = "";
-
+  appendLogElements([userLog]);
   attemptNum++;
+
+  if (inputNum !== correctNum && attemptNum !== maxAttemptNum) {
+    computerLog = createLogElement(
+      inputNum < correctNum ? "[컴퓨터] : 업" : "[컴퓨터] : 다운",
+      "computer-log"
+    );
+    appendLogElements([userLog, computerLog]);
+  }
 
   if (inputNum === correctNum) {
     showResult();
@@ -50,16 +63,10 @@ const guessNumber = () => {
     appendLogElements([userLog, computerLog]);
     return;
   }
-
-  computerLog = createLogElement(
-    inputNum < correctNum ? "[컴퓨터] : 업" : "[컴퓨터] : 다운",
-    "computer-log"
-  );
-  appendLogElements([userLog, computerLog]);
 };
 
 const goToM = () => {
-  window.location.href = "main.html";
+  window.location.href = "main";
 };
 
 document.getElementById("submit-guess").addEventListener("click", guessNumber);
