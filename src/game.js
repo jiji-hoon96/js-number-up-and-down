@@ -1,6 +1,11 @@
 const minNum = Number(sessionStorage.getItem("minNum"));
 const maxNum = Number(sessionStorage.getItem("maxNum"));
 const maxAttemptNum = Number(sessionStorage.getItem("maxAttemptNum"));
+
+const input = document.getElementById("guess-input");
+const progressArea = document.querySelector(".progress-log");
+const confirmGameBtn = document.getElementById("submit-guess");
+
 let correctNum = Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;
 let attemptNum = 0;
 
@@ -12,25 +17,24 @@ const createLogElement = (text, className) => {
 };
 
 const appendLogElements = (elements) => {
-  const progressArea = document.querySelector(".progress-log");
   elements.forEach((element) => progressArea.appendChild(element));
 };
 
-const showResult = () => {
-  const input = document.getElementById("guess-input");
-  const progressArea = document.querySelector(".progress-log");
-  const resultLog = document.createElement("li");
-  const confirmGameBtn = document.getElementById("submit-guess");
-  resultLog.textContent = `[컴퓨터] 축하합니다! 정답을 ${attemptNum}회만에 숫자를 맞추셨습니다. 정답은 ${correctNum}입니다!`;
-  resultLog.classList.add("computer-log");
-  progressArea.appendChild(resultLog);
+const disableFeature = () => {
   confirmGameBtn.disabled = true;
   input.disabled = true;
   confirmGameBtn.style.backgroundColor = "grey";
 };
 
+const showResult = () => {
+  const resultLog = document.createElement("li");
+  resultLog.textContent = `[컴퓨터] 축하합니다! 정답을 ${attemptNum}회만에 숫자를 맞추셨습니다. 정답은 ${correctNum}입니다!`;
+  resultLog.classList.add("computer-log");
+  progressArea.appendChild(resultLog);
+  disableFeature();
+};
+
 const guessNumber = () => {
-  const input = document.getElementById("guess-input");
   const inputNum = Number(input.value);
   const userLog = createLogElement(`[유저] : ${inputNum}`, "user-log");
   let computerLog;
@@ -52,14 +56,11 @@ const guessNumber = () => {
   }
 
   if (attemptNum === maxAttemptNum) {
-    const confirmGameBtn = document.getElementById("submit-guess");
     computerLog = createLogElement(
       `[컴퓨터] : 게임 오버, 정답은 ${correctNum}입니다.`,
       "computer-log"
     );
-    confirmGameBtn.disabled = true;
-    input.disabled = true;
-    confirmGameBtn.style.backgroundColor = "grey";
+    disableFeature();
     appendLogElements([userLog, computerLog]);
     return;
   }
