@@ -17,5 +17,8 @@
     "esbuild": "^0.21.1",
     "eslint": "^8.57.0",
     "prettier": "^3.2.5"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
   }
 }
