@@ -1,0 +1,201 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+  background-color: #f0f0f0;
+}
+
+.container {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+  padding: 32px;
+  width: 400px;
+  text-align: center;
+}
+
+.header {
+  margin-bottom: 24px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.game-input {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.game-input label {
+  width: 80px;
+  display: block;
+  font-size: 16px;
+  color: grey;
+  margin-right: 20px;
+  font-weight: bolder;
+}
+
+#guess-input {
+  width: 60%;
+  padding: 8px;
+  font-size: 16px;
+  text-align: center;
+  border: 1px solid #d0d0d0;
+  border-radius: 4px;
+  margin-right: 8px;
+  box-sizing: border-box;
+}
+
+#submit-guess {
+  width: 80px;
+  padding: 8px 12px;
+  font-size: 16px;
+  color: white;
+  background-color: #1976d2;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#submit-guess:hover {
+  background-color: #1565c0;
+}
+
+.game-progress {
+  margin-bottom: 24px;
+}
+
+.game-progress h2 {
+  margin-bottom: 8px;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.progress-log {
+  text-align: left;
+  height: 300px;
+  padding: 10px;
+  overflow-y: scroll;
+  border-radius: 4px;
+}
+
+.progress-log p {
+  margin: 8px 0;
+  font-size: 14px;
+}
+
+.user-log {
+  list-style: none;
+  margin: 10px;
+  color: grey;
+}
+
+.computer-log {
+  list-style: none;
+  color: grey;
+  margin: 10px;
+}
+
+#go-to-main {
+  width: 100%;
+  padding: 12px;
+  font-size: 18px;
+  color: white;
+  background-color: #1976d2;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#go-to-main:hover {
+  background-color: #1565c0;
+}
+
+.game-settings h2 {
+  margin-bottom: 16px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.range-inputs {
+  margin-bottom: 16px;
+}
+
+.range-inputs label {
+  display: block;
+  color: grey;
+  margin-bottom: 8px;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-group input {
+  width: 70px;
+  padding: 8px;
+  margin: 0 8px;
+  font-size: 16px;
+  text-align: center;
+  border: 1px solid #d0d0d0;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.input-group span {
+  font-size: 18px;
+  margin: 0 8px;
+}
+
+.attempts-input {
+  margin-bottom: 24px;
+}
+
+.attempts-input label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 16px;
+  font-weight: 400;
+  color: grey;
+}
+
+.attempts-input input {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  text-align: center;
+  border: 1px solid #d0d0d0;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  font-size: 18px;
+  color: white;
+  background-color: #1976d2;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #1565c0;
+}
