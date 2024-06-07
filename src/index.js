@@ -36,6 +36,9 @@ const disableFeature = () => {
 };
 
 const showResult = () => {
+  const goToResultBtn = document.getElementById("go-to-result");
+  goToResultBtn.disabled = false;
+  goToResultBtn.style.backgroundColor = "#1976d2";
   const resultLog = document.createElement("li");
   resultLog.textContent = `[컴퓨터] 축하합니다! 정답을 ${attemptNum}회만에 숫자를 맞추셨습니다. 정답은 ${correctNum}입니다!`;
   userScore++;
@@ -89,6 +92,9 @@ const guessNumber = () => {
   }
 
   if (attemptNum === maxAttemptNum) {
+    const goToResultBtn = document.getElementById("go-to-result");
+    goToResultBtn.disabled = false;
+    goToResultBtn.style.backgroundColor = "#1976d2";
     computerLog = createLogElement(
       `[컴퓨터] : 게임 오버, 정답은 ${correctNum}입니다.`,
       "computer-log"
@@ -120,6 +126,8 @@ const pages = {
     container.innerHTML = game();
     const confirmGameBtn = document.getElementById("submit-guess");
     const goToResultBtn = document.getElementById("go-to-result");
+    goToResultBtn.disabled = true;
+    goToResultBtn.style.backgroundColor = "grey";
     confirmGameBtn.addEventListener("click", guessNumber);
     goToResultBtn.addEventListener("click", goToResult);
   },
