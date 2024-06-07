@@ -19,12 +19,11 @@ export default function createRouter() {
         params,
       });
 
-      console.log(this);
-
       return this;
     },
     start() {
       const getUrlParams = (route, hash) => {
+        console.log(route, hash);
         const params = {};
         const matches = hash.match(route.fragmentRegExp);
 
@@ -33,14 +32,12 @@ export default function createRouter() {
           const paramsName = route.params[index];
           params[paramsName] = paramValue;
         });
-        // params = {name: 'IU', song: 'raindrop'}
         return params;
       };
 
       const checkRoutes = () => {
-        const currentRoute = routes.find(
-          (route) => route.fragmentRegExp.test(window.location.hash)
-          //  (route) => route.fragment === window.location.hash
+        const currentRoute = routes.find((route) =>
+          route.fragmentRegExp.test(window.location.hash)
         );
 
         if (currentRoute.params.length) {
@@ -54,6 +51,7 @@ export default function createRouter() {
       window.addEventListener("hashchange", checkRoutes);
       checkRoutes();
     },
+
     navigate(fragment) {
       window.location.hash = fragment;
     },

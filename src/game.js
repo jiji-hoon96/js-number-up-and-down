@@ -13,6 +13,6 @@ export default function game() {
   <ul class="progress-log">
   </ul>
 </div>
-<button id="go-to-main">메인 화면으로 이동</button>
+<button id="go-to-result">결과 화면으로 이동</button>
   `;
 }

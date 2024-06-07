@@ -1,10 +1,13 @@
 import createRouter from "./router.js";
 import home from "./home.js";
 import game from "./game.js";
+import result from "./result.js";
 import { getNumberInputValue } from "./utils.js";
 
 let correctNum;
 let attemptNum = 0;
+let computerScore = 0;
+let userScore = 0;
 
 const router = createRouter();
 
@@ -35,8 +38,10 @@ const disableFeature = () => {
 const showResult = () => {
   const resultLog = document.createElement("li");
   resultLog.textContent = `[컴퓨터] 축하합니다! 정답을 ${attemptNum}회만에 숫자를 맞추셨습니다. 정답은 ${correctNum}입니다!`;
+  userScore++;
   resultLog.classList.add("computer-log");
   document.querySelector(".progress-log").appendChild(resultLog);
+  sessionStorage.setItem("userScore", userScore);
   disableFeature();
 };
 
@@ -88,10 +93,16 @@ const guessNumber = () => {
       `[컴퓨터] : 게임 오버, 정답은 ${correctNum}입니다.`,
       "computer-log"
     );
+    computerScore++;
     disableFeature();
+    sessionStorage.setItem("computerScore", computerScore);
     appendLogElements([userLog, computerLog]);
     return;
   }
+};
+
+const goToResult = () => {
+  router.navigate("#/result");
 };
 
 const goToHome = () => {
@@ -108,11 +119,19 @@ const pages = {
   game: () => {
     container.innerHTML = game();
     const confirmGameBtn = document.getElementById("submit-guess");
-    const goToMainBtn = document.getElementById("go-to-main");
-
+    const goToResultBtn = document.getElementById("go-to-result");
     confirmGameBtn.addEventListener("click", guessNumber);
+    goToResultBtn.addEventListener("click", goToResult);
+  },
+  result: () => {
+    container.innerHTML = result();
+    const goToMainBtn = document.getElementById("go-to-main");
     goToMainBtn.addEventListener("click", goToHome);
   },
 };
 
-router.addRouter("", pages.home).addRouter("#/game", pages.game).start();
+router
+  .addRouter("", pages.home)
+  .addRouter("#/game", pages.game)
+  .addRouter("#/result", pages.result)
+  .start();

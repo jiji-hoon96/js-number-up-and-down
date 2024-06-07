@@ -184,6 +184,10 @@ body {
   box-sizing: border-box;
 }
 
+.result {
+  margin-bottom: 24px;
+}
+
 button {
   width: 100%;
   padding: 12px;
