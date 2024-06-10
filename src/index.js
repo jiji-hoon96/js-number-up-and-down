@@ -116,30 +116,32 @@ const goToHome = () => {
   attemptNum = 0;
 };
 
-const container = document.querySelector(".container");
-const pages = {
-  home: () => {
-    container.innerHTML = home();
-    document.getElementById("start-game").addEventListener("click", playGame);
-  },
-  game: () => {
-    container.innerHTML = game();
-    const confirmGameBtn = document.getElementById("submit-guess");
-    const goToResultBtn = document.getElementById("go-to-result");
-    goToResultBtn.disabled = true;
-    goToResultBtn.style.backgroundColor = "grey";
-    confirmGameBtn.addEventListener("click", guessNumber);
-    goToResultBtn.addEventListener("click", goToResult);
-  },
-  result: () => {
-    container.innerHTML = result();
-    const goToMainBtn = document.getElementById("go-to-main");
-    goToMainBtn.addEventListener("click", goToHome);
-  },
-};
+document.addEventListener("DOMContentLoaded", () => {
+  const container = document.querySelector(".container");
+  const pages = {
+    home: () => {
+      container.innerHTML = home();
+      document.getElementById("start-game").addEventListener("click", playGame);
+    },
+    game: () => {
+      container.innerHTML = game();
+      const confirmGameBtn = document.getElementById("submit-guess");
+      const goToResultBtn = document.getElementById("go-to-result");
+      goToResultBtn.disabled = true;
+      goToResultBtn.style.backgroundColor = "grey";
+      confirmGameBtn.addEventListener("click", guessNumber);
+      goToResultBtn.addEventListener("click", goToResult);
+    },
+    result: () => {
+      container.innerHTML = result();
+      const goToMainBtn = document.getElementById("go-to-main");
+      goToMainBtn.addEventListener("click", goToHome);
+    },
+  };
 
-router
-  .addRouter("", pages.home)
-  .addRouter("#/game", pages.game)
-  .addRouter("#/result", pages.result)
-  .start();
+  router
+    .addRouter("", pages.home)
+    .addRouter("#/game", pages.game)
+    .addRouter("#/result", pages.result)
+    .start();
+});
