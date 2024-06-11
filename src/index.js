@@ -66,7 +66,7 @@ const playGame = () => {
 
   correctNum = Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;
 
-  router.navigate("#/game");
+  router.navigate("#/game", true);
 };
 
 const guessNumber = () => {
@@ -108,11 +108,11 @@ const guessNumber = () => {
 };
 
 const goToResult = () => {
-  router.navigate("#/result");
+  router.navigate("#/result", true);
 };
 
 const goToHome = () => {
-  router.navigate("");
+  router.navigate("", true);
   attemptNum = 0;
 };
 

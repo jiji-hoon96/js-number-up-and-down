@@ -52,8 +52,16 @@ export default function createRouter() {
       checkRoutes();
     },
 
-    navigate(fragment) {
-      window.location.hash = fragment;
+    navigate(fragment, replace) {
+      if (replace) {
+        const href = window.location.href.replace(
+          window.location.hash,
+          "#" + fragment
+        );
+        window.location.replace(fragment);
+      } else {
+        window.location.hash = fragment;
+      }
     },
   };
 
